@@ -1,0 +1,120 @@
+# test on nokia 7 plus with v3_22C
+#============= init ==============
+allow init vendor_file:file rwx_file_perms;
+
+#============= ueventd ==============
+type mba_debug_dev;
+allow ueventd mba_debug_dev:blk_file create_file_perms;
+
+#============= vendor_init ==============
+type hidden_files;
+allow vendor_init hidden_files:filesystem getattr;
+allow vendor_init media_rw_data_file:dir create_dir_perms;
+allow vendor_init tombstone_data_file:dir create_dir_perms;
+allow vendor_init adbd_exec:file rwx_file_perms;
+allow vendor_init atrace_exec:file rwx_file_perms;
+allow vendor_init audioserver_exec:file rwx_file_perms;
+allow vendor_init blank_screen_exec:file rwx_file_perms;
+allow vendor_init blkid_exec:file rwx_file_perms;
+allow vendor_init hwservicemanager:binder call;
+
+#============= kernel ==============
+allow kernel self:capability { dac_override dac_read_search };
+
+#============= rild ==============
+type vendor_pd_locater_dbg_prop;
+allow rild vendor_pd_locater_dbg_prop:file rwx_file_perms;
+type hal_perf_default;
+allow rild hal_perf_default:hwservice_manager find;
+
+#============= logd ==============
+allow logd unlabeled:dir create_dir_perms;
+
+#============= vndk_detect ==============
+allow vndk_detect proc_filesystems:file rwx_file_perms;
+
+#============= time_daemon ==============
+type time_daemon;
+type persist_file;
+allow time_daemon persist_file:dir create_dir_perms;
+
+#============= qti_init_shell ==============
+type qti_init_shell;
+allow qti_init_shell persist_file:dir create_dir_perms;
+allow qti_init_shell self:capability { dac_override dac_read_search };
+allow qti_init_shell proc_extra_free_kbytes:file rwx_file_perms;
+
+#============= hal_imsrtp ==============
+type hal_imsrtp;
+type diag_device;
+allow hal_imsrtp diag_device:chr_file create_file_perms;
+
+#============= hal_graphics_composer_default ==============
+type hal_graphics_composer_default;
+allow hal_graphics_composer_default diag_device:chr_file create_file_perms;
+
+#============= cnd ==============
+type cnd;
+allow cnd diag_device:chr_file create_file_perms;
+
+#============= netmgrd ==============
+type netmgrd;
+allow netmgrd diag_device:chr_file create_file_perms;
+
+#============= bootanim ==============
+allow bootanim system_data_file:dir create_dir_perms;
+
+#============= installd ==============
+type persist_drm_file;
+allow installd persist_drm_file:filesystem quotaget;
+allow installd hidden_files:filesystem quotaget;
+
+#============= hal_camera_default ==============
+type hal_camera_default;
+type qti_debugfs;
+allow hal_camera_default qti_debugfs:dir create_dir_perms;
+
+#============= radio ==============
+allow radio qti_debugfs:dir create_dir_perms;
+
+#============= wcnss_service ==============
+type wcnss_service;
+allow wcnss_service wifi_data_file:dir create_dir_perms;
+
+#============= system_server ==============
+allow system_server sysfs:file rwx_file_perms;
+
+#============= hal_bluetooth_qti ==============
+type hal_bluetooth_qti;
+type vendor_bt_data_file;
+allow hal_bluetooth_qti vendor_bt_data_file:dir create_dir_perms;
+
+#============= vold ==============
+allow vold mnt_vendor_file:dir create_dir_perms;
+allow vold persist_drm_file:dir create_dir_perms;
+
+#============= nfc ==============
+allow nfc system_data_file:dir create_dir_perms;
+
+#============= untrusted_app ==============
+allow untrusted_app time_daemon:unix_stream_socket connectto;
+
+#============= untrusted_app_27 ==============
+type vendor_camera_prop;
+allow untrusted_app_27 vendor_camera_prop:file rwx_file_perms;
+allow untrusted_app_27 qti_debugfs:dir create_dir_perms;
+
+#============= priv_app ==============
+allow priv_app sysfs:file rwx_file_perms;
+
+#============= wificond ==============
+allow wificond wifi_data_file:dir create_dir_perms;
+#allow wificond system_data_file:file rwx_file_perms;
+
+#============= hal_wifi_default ==============
+type hal_wifi_default;
+type vendor_tombstone_data_file;
+allow hal_wifi_default vendor_tombstone_data_file:dir create_dir_perms;
+
+#============= hal_perf_default ==============
+allow hal_perf_default self:capability { dac_override dac_read_search };
